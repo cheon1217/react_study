@@ -1,7 +1,10 @@
-function Member() {
+function Member({ name, age, children }) {
   return (
     <>
-      <div>저는 홍길동입니다.</div>
+      <div>
+        저는 {name}입니다. 나이는 {age}세입니다.
+      </div>
+      <div>{children}</div>
     </>
   );
 }
