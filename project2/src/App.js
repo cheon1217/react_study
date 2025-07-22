@@ -3,20 +3,20 @@ import Header from './components/Header';
 import TestComp from './components/TestComp';
 import TodoEditor from './components/TodoEditor';
 import TodoList from './components/TodoList';
-import { useState, useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useRef, useMemo } from 'react';
 
 const mockTodo = [
   { id: 0, isDone: false, content: "React 공부하기", createdDate: new Date().getTime() },
   { id: 1, isDone: false, content: "빨래 널기", createdDate: new Date().getTime() },
   { id: 2, isDone: false, content: "노래 연습하기", createdDate: new Date().getTime() }
-]
+];
 
 function reducer(state, action) {
   switch (action.type) {
     case "CREATE":
       return [action.newItem, ...state];
     case "UPDATE":
-      return state.map((item) => 
+      return state.map((item) =>
         item.id === action.targetId ? { ...item, isDone: !item.isDone } : item
       );
     case "DELETE":
@@ -26,11 +26,14 @@ function reducer(state, action) {
   }
 }
 
+export const TodoStateContext = React.createContext();
+export const TodoDispatchContext = React.createContext();
+
 function App() {
   const [todo, dispatch] = useReducer(reducer, mockTodo);
-  const idRef = useState(3);
+  const idRef = useRef(3);
 
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     dispatch({
       type: "CREATE",
       newItem: {
@@ -41,7 +44,7 @@ function App() {
       }
     });
     idRef.current += 1;
-  };
+  }, []);
 
   const onUpdate = useCallback((targetId) => {
     dispatch({
@@ -57,12 +60,20 @@ function App() {
     });
   }, []);
 
+  const memoizedDispatches = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, [onCreate, onUpdate, onDelete]);
+
   return (
     <div className="App">
       <TestComp />
       <Header />
-      <TodoEditor onCreate={onCreate} />
-      <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
+      <TodoStateContext.Provider value={{ todo }}>
+        <TodoDispatchContext.Provider value={memoizedDispatches}>
+          <TodoEditor />
+          <TodoList />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }
