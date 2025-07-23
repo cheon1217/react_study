@@ -1,30 +1,140 @@
+body.dark .DiaryList .left_col select,
+body.dark .DiaryList .left_col input[type="text"] {
+    background: #23272a;
+    color: var(--text-main);
+    border: 1.5px solid var(--border-main);
+}
+body.dark .DiaryList .left_col select:focus,
+body.dark .DiaryList .left_col input[type="text"]:focus {
+    background: #23272a;
+    border: 1.5px solid #64c964;
+}
+
+body.dark .DiaryList .menu_wrapper .right_col button {
+    background: #23272a;
+    color: #64c964;
+    border: 1.5px solid #64c964;
+}
+body.dark .DiaryList .menu_wrapper .right_col button:hover {
+    background: #333;
+    color: #fff;
+}
+
+body.dark .DiaryList .pagination button {
+    background: #23272a;
+    color: var(--text-main);
+}
+body.dark .DiaryList .pagination button.active,
+body.dark .DiaryList .pagination button:focus {
+    background: #64c964;
+    color: #fff;
+}
+
 .DiaryList .menu_wrapper {
     margin-top: 20px;
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.DiaryList .left_col {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
 }
 
 .DiaryList .left_col select {
-    margin-right: 10px;
     border: none;
     border-radius: 5px;
     background-color: #ececec;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-
+    padding: 8px 18px;
     cursor: pointer;
     font-family: "Nanum Pen Script";
     font-size: 18px;
+    transition: background 0.2s;
+}
+.DiaryList .left_col select:focus {
+    outline: 2px solid #64c964;
+    background: #e0ffe0;
+}
+
+.DiaryList .left_col input[type="text"] {
+    flex: 1 1 0%;
+    min-width: 180px;
+    margin-left: 8px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 1.5px solid #ececec;
+    font-family: "Nanum Pen Script";
+    font-size: 18px;
+    background: #fafafa;
+    transition: border 0.2s;
+    box-sizing: border-box;
+    /* 꽉 차게 */
+    width: 100%;
+    max-width: 340px;
+}
+.DiaryList .left_col input[type="text"]:focus {
+    border: 1.5px solid #64c964;
+    background: #f3fff3;
+    outline: none;
 }
 
 .DiaryList .menu_wrapper .right_col {
-    flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 18px;
 }
 
 .DiaryList .menu_wrapper .right_col button {
-    width: 100%;
+    width: 160px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 8px;
+    font-family: "Nanum Pen Script";
+    font-weight: bold;
+    background: #64c964;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px #e0e7ff;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.DiaryList .menu_wrapper .right_col button:hover {
+    background: #4fa84f;
+    box-shadow: 0 4px 16px #c0e7c0;
+}
+
+.DiaryList .list_wrapper {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.DiaryList .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+    gap: 6px;
+}
+
+.DiaryList .pagination button {
+    margin: 0 2px;
+    padding: 7px 16px;
+    border-radius: 7px;
+    border: none;
+    background: #ececec;
+    color: #333;
+    font-weight: bold;
+    font-family: "Nanum Pen Script";
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.DiaryList .pagination button.active,
+.DiaryList .pagination button:focus {
+    background: #64c964;
+    color: #fff;
+    outline: none;
 }

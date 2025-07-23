@@ -31,8 +31,11 @@ const Edit = () => {
         navigate(-1);
     };
 
+    const loginUserId = localStorage.getItem("loginUser");
     if (!data) {
         return <div>일기를 불러오고 있습니다...</div>;
+    } else if (data.userId !== loginUserId) {
+        return <div>수정 권한이 없습니다.</div>;
     } else {
         return (
             <div>

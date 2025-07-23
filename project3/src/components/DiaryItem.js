@@ -1,18 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import "./DiaryItem.css";
 import { getEmotionImgById } from "../util";
-import Button from "./Button";
 import React from "react";
 
-const DiaryItem = ({ id, emotionId, content, date }) => {
+const DiaryItem = ({ id, emotionId, content, date, nickname, userId, onEdit }) => {
     const navigate = useNavigate();
 
-    const goDetail = () => {
-        navigate(`/diary/${id}`);
-    };
+    const loginUserId = localStorage.getItem("loginUser");
+    const isOwner = userId === loginUserId && !!loginUserId;
 
-    const goEdit = () => {
-        navigate(`/edit/${id}`);
+    const goDetail = () => {
+        if (!loginUserId) {
+            alert("로그인 후 이용 가능합니다.");
+            navigate("/login");
+            return;
+        }
+        navigate(`/diary/${id}`);
     };
 
     return (
@@ -23,17 +26,30 @@ const DiaryItem = ({ id, emotionId, content, date }) => {
             >
                 <img alt={`emotion${emotionId}`} src={getEmotionImgById(emotionId)} />
             </div>
-            <div onClick={goDetail} className="info_section">
+            <div className="info_section" onClick={goDetail}>
                 <div className="date_wrapper">
                     {new Date(parseInt(date)).toLocaleDateString()}
+                    <span className="nickname"> [{nickname}]</span>
                 </div>
                 <div className="content_wrapper">{content.slice(0, 25)}</div>
             </div>
-            <div className="button_section">
-                <Button onClick={goEdit} text={"수정하기"} />
-            </div>
+            {isOwner && (
+                <button
+                    className="edit-btn"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (!loginUserId) {
+                            navigate("/login");
+                            return;
+                        }
+                        if (onEdit) onEdit(id, userId);
+                    }}
+                >
+                    수정하기
+                </button>
+            )}
         </div>
-    )
+    );
 };
 
 export default React.memo(DiaryItem);

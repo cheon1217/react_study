@@ -1,9 +1,9 @@
 import { emotionList } from "../util";
 import "./Viewer.css";
 
-const Viewer = ({ content, emotionId }) => {
+const Viewer = ({ content, emotionId, nickname }) => {
     const emotionItem = emotionList.find((it) => it.id === emotionId);
-    
+
     return (
         <div className="Viewer">
             <section>
@@ -19,9 +19,16 @@ const Viewer = ({ content, emotionId }) => {
                 </div>
             </section>
             <section>
-                <h4>오늘의 일기</h4>
+                <div className="viewer-title-row">
+                    <h4>오늘의 일기</h4>
+                    {nickname && (
+                        <span className="viewer-nickname">[{nickname}]</span>
+                    )}
+                </div>
                 <div className="content_wrapper">
-                    <p>{content ? content : "일기가 없습니다."}</p>
+                    <p>
+                        {content ? content : "일기가 없습니다."}
+                    </p>
                 </div>
             </section>
         </div>

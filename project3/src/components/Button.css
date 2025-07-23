@@ -25,3 +25,17 @@
     background-color: #fd565f;
     color: white;
 }
+
+body.dark .Button_default {
+    background-color: #23272a;
+    color: var(--text-main);
+    border: 1.5px solid var(--border-main);
+}
+body.dark .Button_positive {
+    background-color: #64c964;
+    color: #fff;
+}
+body.dark .Button_negative {
+    background-color: #fd565f;
+    color: #fff;
+}

@@ -1,0 +1,38 @@
+.login-container {
+  max-width: 340px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 1.5px solid #ececec;
+  font-family: "Nanum Pen Script";
+  margin-bottom: 0;
+  background: #fff;
+  color: #222;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.login-container input:focus {
+  border: 1.5px solid #64c964;
+  outline: none;
+}
+.login-container .Button {
+  margin-top: 8px;
+}
+
+/* 다크모드 */
+body.dark .login-container input {
+  background: #23272a;
+  color: #f6f6f6;
+  border: 1.5px solid #444;
+}
+body.dark .login-container input:focus {
+  border: 1.5px solid #64c964;
+  background: #181a1b;
+  color: #f6f6f6;
+}

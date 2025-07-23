@@ -5,10 +5,10 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import EmotionItem from "./EmotionItem";
 
-const Editor = ({ initData, onSubmit }) => {
+const Editor = ({ initData, onSubmit, defaultDate }) => {
     const navigate = useNavigate();
     const [state, setState] = useState({
-        date: getFormattedDate(new Date()),
+        date: defaultDate || getFormattedDate(new Date()),
         emotionId: 3,
         content: "",
     });
@@ -48,8 +48,13 @@ const Editor = ({ initData, onSubmit }) => {
                 ...initData,
                 date: getFormattedDate(new Date(parseInt(initData.date))),
             });
+        } else if (defaultDate) {
+            setState((prev) => ({
+                ...prev,
+                date: defaultDate,
+            }));
         }
-    }, [initData]);
+    }, [initData, defaultDate]);
 
     return (
         <div className="Editor">
